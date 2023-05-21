@@ -24,10 +24,12 @@ app.use(express.json());
 // Enable CORS for all routes
 app.use(cors());
 
+// Home route
 app.get("/", async (req, res) => {
   res.send("Hello world");
 });
 
+// API to insert data into the collection
 app.post("/insert", async (req, res) => {
   try {
     await insertData();
@@ -38,6 +40,7 @@ app.post("/insert", async (req, res) => {
   }
 });
 
+// API to get data with pagination
 app.get("/getData", async (req, res) => {
   try {
     const pageNumber = parseInt(req.query.startIndex) || 1;
@@ -50,46 +53,51 @@ app.get("/getData", async (req, res) => {
   }
 });
 
+// API to get the latest records
 app.get("/latest", async (req, res) => {
   try {
     const result = await getLatestRecords();
     res.send(result);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ Error: "getData API failed" });
+    res.status(500).send({ Error: "latest API failed" });
   }
 });
 
+// API to get the total number of records
 app.get("/getTotleRecords", async (req, res) => {
   try {
     const result = await getTotleRecordsCount();
-    res.send({ totle: result });
+    res.send({ total: result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ Error: "getData API failed" });
+    res.status(500).send({ Error: "getTotleRecords API failed" });
   }
 });
 
+// API to get the count of unique SKUs and their sales records
 app.get("/getMostSalesRecords", async (req, res) => {
   try {
     const result = await getUniqueSKUCounts();
     res.send({ result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ Error: "getData API failed" });
+    res.status(500).send({ Error: "getMostSalesRecords API failed" });
   }
 });
 
+// API to get the total sales records for each SKU
 app.get("/getSalesRecords", async (req, res) => {
   try {
     const result = await getSKUTotal();
     res.send({ result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ Error: "getData API failed" });
+    res.status(500).send({ Error: "getSalesRecords API failed" });
   }
 });
 
+// API to calculate the total revenue
 app.get("/totalrevenue", async (req, res) => {
   try {
     const result = await totalRevenue();
@@ -100,17 +108,18 @@ app.get("/totalrevenue", async (req, res) => {
     res.send({ totalRevenue: totalPriceSum });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ Error: "getData API failed" });
+    res.status(500).send({ Error: "totalrevenue API failed" });
   }
 });
 
+// API to get the monthly sales records
 app.get("/getmonthlyrecords", async (req, res) => {
   try {
     const result = await getMonthlyTotal();
     res.send({ result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ Error: "getData API failed" });
+    res.status(500).send({ Error: "getmonthlyrecords API failed" });
   }
 });
 

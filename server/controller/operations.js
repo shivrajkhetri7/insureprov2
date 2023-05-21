@@ -1,6 +1,9 @@
 const documentInsert = require("../datafix/index");
 const Sales = require("../schema/sales");
 
+/**
+ * @function insertData Inserts a new sale record into the collection.
+ */
 const insertData = async () => {
   try {
     // Create a new document
@@ -21,7 +24,7 @@ const insertData = async () => {
 };
 
 /**
- * @function getData This function retrieves data from the collection with pagination.
+ * @function getData Retrieves data from the collection with pagination.
  * @param {number} pageNumber The page number to retrieve.
  * @param {number} pageSize The number of items per page.
  * @returns {Object} The data for the specified page.
@@ -40,7 +43,7 @@ const getData = async (pageNumber, pageSize) => {
 };
 
 /**
- * @function getLatestRecords This function retrieves the latest 10 records from the collection.
+ * @function getLatestRecords Retrieves the latest 10 records from the collection.
  * @returns {Object} The latest 10 records.
  */
 const getLatestRecords = async () => {
@@ -56,7 +59,7 @@ const getLatestRecords = async () => {
 };
 
 /**
- * @function getLatestRecordsCount This function retrieves the total count of records from the collection.
+ * @function getTotleRecordsCount Retrieves the total count of records from the collection.
  * @returns {number} The total count of records.
  */
 const getTotleRecordsCount = async () => {
@@ -69,7 +72,10 @@ const getTotleRecordsCount = async () => {
   }
 };
 
-// Most sales
+/**
+ * @function getUniqueSKUCounts Retrieves the count of unique SKUs and their sales records.
+ * @returns {Object} The count of unique SKUs and their sales records.
+ */
 const getUniqueSKUCounts = async () => {
   try {
     const uniqueSKUs = await Sales.aggregate([
@@ -84,6 +90,10 @@ const getUniqueSKUCounts = async () => {
   }
 };
 
+/**
+ * @function getSKUTotal Retrieves the total sales records for each SKU.
+ * @returns {Object} The total sales records for each SKU.
+ */
 const getSKUTotal = async () => {
   try {
     const uniqueSKUs = await Sales.aggregate([
@@ -104,6 +114,10 @@ const getSKUTotal = async () => {
   }
 };
 
+/**
+ * @function getMonthlyTotal Retrieves the total sales records grouped by month and year, and the most popular item for each month.
+ * @returns {Object} The total sales records grouped by month and year, and the most popular item for each month.
+ */
 const getMonthlyTotal = async () => {
   try {
     const currentDate = new Date();
@@ -164,6 +178,10 @@ const getMonthlyTotal = async () => {
   }
 };
 
+/**
+ * @function totalRevenue Retrieves the total revenue from the sales records.
+ * @returns {Object} The total revenue from the sales records.
+ */
 const totalRevenue = async () => {
   const records = await documentInsert();
   return records;
