@@ -15,7 +15,7 @@ const salesSchema = new mongoose.Schema({
   },
   TotalPrice: {
     type: String,
-  },
+  }
 });
 
 module.exports = mongoose.model("Sales", salesSchema, "sales");
